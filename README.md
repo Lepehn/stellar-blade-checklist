@@ -1,7 +1,7 @@
 # 📋 stellar-blade-checklist
 https://lepehn.github.io/stellar-blade-checklist/
 
-A sleek, lightweight checklist web app to help you track quests, requests, and collectible cans in **Stellar Blade**. Inspired by fan-made guides for games like *Dark Souls* and *Bloodborne*, this project helps you stay organized without spoilers or unnecessary fluff.
+A sleek, lightweight checklist web app to help you track progress in **Stellar Blade**. Inspired by fan-made guides for games like *Dark Souls* and *Bloodborne*, this project helps you stay organized without spoilers or unnecessary fluff.
 
 ## 🧩 Features
 
