@@ -538,42 +538,209 @@ body.discord-theme {
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-/*----------- stats ----------*/
+/* =====================================================
+   GAME CONFIG
+   ===================================================== */
+
+const GAME = {
+  id: "stellar-blade",
+  storageKey: "stellar-blade-checklist",
+
+  statuses: ["NotStarted", "InProgress", "OnHold", "Completed", "Hundred"],
+
+  completedStatuses: ["Completed", "Hundred"],
+
+  categories: {
+    main: "Main Quests",
+    side: "Side Quests",
+    request: "Requests",
+    can: "Cans"
+  },
+
+  data: {
+    main: [
+      { name: "7th Airborne Squad", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Scavenger Adam", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Xion, the Last Remaining City", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Altess Levoire", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Light of Hope", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Alpha Signal", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Hidden Truth", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Abyss Levoire", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Orcal's Testimony", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Secret Garden", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Eye of the Hurricane", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Burning Xion", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Last Fragment", tag: "Required", status: "NotStarted", note: ""},
+      { name: "Selection of Species", tag: "Required", status: "NotStarted", note: ""},
+      { name: "EVE Protocol", tag: "Required", status: "NotStarted", note: ""}
+    ],
+    side: [
+      { name: "A Treasure with a Name", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "A United People Cannot Be Defeated", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "An Eye for an Eye, a Tooth for a Tooth", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "An Offer You Can't Refuse", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "An Unknown Present", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Angel of Death", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Barry and Wine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "CnL - Communicate and Link", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Encounter", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "End of the Nightmare", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Fallen Angel", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "First Customer", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "I Won't Forget You", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Incarceration", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Keeping Secrets", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Let There Be Light Again", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Life of the Scavengers", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Looking at You", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Looking Glass", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Lost Ark", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Madama Machine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Memories in the Doll", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Oblivion", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Plan to Clean the Earth", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Reboot!", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Reboot!!!", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Siren's Song", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Stolen Treasure", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Stubbornness", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Taboo", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "The King of the Tunnel", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "The Scavenger's Story", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "The Words of Mother Sphere", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Urgent Information", tag: "Optional", status: "NotStarted", note: ""}
+    ],
+    request: [
+      { name: "An Unforgettable Fish Dish", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Find the Cat", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Generous Drop Pod", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Legion's Secret Stash", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Looking for My Brother", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Lost Device", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Lurker Hunt", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Missing Husband", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Missing Wife", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Precious Treasure", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Recruit Passcode Specialists", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Simple Puzzle", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Sleeping Beauty", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Source of the Nightmare", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "The Last Wine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Time for Revenge", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Valuable Cargo", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Where's the Item", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wife's Medicine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wife's Water Tank", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wisdom Puzzle", tag: "Optional", status: "NotStarted", note: ""}
+    ],
+    can: [
+      { name: "Cryo Original", tag: "Eidos7", status: "NotStarted", note: ""},
+      { name: "Cryo Zero", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Pixie", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Pixie Zero", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Newfoundland Dry", tag: "Matrix11", status: "NotStarted", note: ""},
+      { name: "Newfoundland Dry Zero", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Milky Pop", tag: "Spire4", status: "NotStarted", note: ""},
+      { name: "Milky Pop Zero", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "The Machinetta Americano", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "The Machinetta Cafe Latte", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "The Machinetta Caramel Machiatto", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Cryo Cafe Original", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Cryo Cafe Vanilla", tag: "Matrix11", status: "NotStarted", note: ""},
+      { name: "Cryo Cafe Mocha", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "The Haven Earl Grey", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "The Haven Milk Tea", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "The Haven Green Tea", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "GrainT Barley", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "GrainT Oolong", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "GrainT Corn", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Nectar Orange", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Nectar Grape", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Nectar Apple", tag: "Spire4", status: "NotStarted", note: ""},
+      { name: "Nectar Cranberry", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Elixir Carrot", tag: "Eidos7", status: "NotStarted", note: ""},
+      { name: "Elixir Green", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Behemoth Red", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Behemoth Green", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Behemoth Black", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Liquid Fire", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Liquid Lightning", tag: "Spire4", status: "NotStarted", note: ""},
+      { name: "Liquid Nuclear", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Potential Blast", tag: "Eidos7", status: "NotStarted", note: ""},
+      { name: "Potential Tempest", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Potential Frost", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Dionysus C", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Moonwell", tag: "Spire4", status: "NotStarted", note: ""},
+      { name: "Starwell", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Mountain Sparkle Mont Blanc", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Mountain Sparkle Everest", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Mountain Sparkle Halla", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Cryo The Clear", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Cryo The Malt", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Bayern Hefe Weissbier", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Bayern Weissbier Dunkel", tag: "Xion", status: "NotStarted", note: ""},
+      { name: "Corsair Lager", tag: "Wasteland", status: "NotStarted", note: ""},
+      { name: "Corsair Ale", tag: "Matrix11", status: "NotStarted", note: ""},
+      { name: "Johnson's Highball Lemon", tag: "GreatDesert", status: "NotStarted", note: ""},
+      { name: "Johnson's Highball Ginger", tag: "GreatDesert", status: "NotStarted", note: ""}
+    ]
+  }
+};
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+let currentCategory = Object.keys(GAME.categories)[0];
 let categoryChart;
 
+
+/* =====================================================
+   STORAGE
+   ===================================================== */
+
+const saved = JSON.parse(localStorage.getItem(GAME.storageKey));
+if (saved) Object.assign(GAME.data, saved);
+
+function saveGame() {
+  localStorage.setItem(GAME.storageKey, JSON.stringify(GAME.data));
+}
+
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+
+function isCompleted(status) {
+  return GAME.completedStatuses.includes(status);
+}
+
+function splitTags(tag) {
+  return Array.isArray(tag) ? tag : tag.split(",").map(t => t.trim());
+}
+
+function completionPercent(list) {
+  const done = list.filter(q => isCompleted(q.status)).length;
+  return list.length ? Math.round((done / list.length) * 100) : 0;
+}
+
+
+/* =====================================================
+   STATS + CHART
+   ===================================================== */
+
 function updateStats() {
+  const labels = [];
+  const values = [];
 
-  // Helper: calculate completion %
-  function completionPercent(list) {
-    let completed = 0;
-
-    list.forEach(q => {
-      if (q.status === "Completed" || q.status === "Hundred") {
-        completed++;
-      }
-    });
-
-    return list.length
-      ? Math.round((completed / list.length) * 100)
-      : 0;
+  for (const key in GAME.categories) {
+    if (!GAME.data[key]) continue;
+    labels.push(GAME.categories[key]);
+    values.push(completionPercent(GAME.data[key]));
   }
 
-  /* -------- CATEGORY DATA -------- */
-  const categoryLabels = [
-    "Main Quests", 
-    "Side Quests", 
-    "Requests",
-    "Cans"
-  ];
-
-  const categoryValues = [
-    completionPercent(quests.main),
-    completionPercent(quests.side),
-    completionPercent(quests.request),
-    completionPercent(quests.can)
-  ];
-
-  /* -------- Chart setup -------- */
   const ctx = document.getElementById("categoryChart")?.getContext("2d");
   if (!ctx) return;
 
@@ -586,16 +753,15 @@ function updateStats() {
     .trim();
 
   Chart.defaults.color = textColor;
-
   if (categoryChart) categoryChart.destroy();
 
   categoryChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: categoryLabels,
+      labels,
       datasets: [{
         label: "Completion %",
-        data: categoryValues,
+        data: values,
         backgroundColor: "#1177a3"
       }]
     },
@@ -605,22 +771,18 @@ function updateStats() {
         y: {
           beginAtZero: true,
           max: 100,
-          ticks: {
-            callback: v => v + "%"
-          }
+          ticks: { callback: v => v + "%" }
         }
       },
       plugins: {
         legend: { display: false },
         tooltip: {
-          callbacks: {
-            label: ctx => ctx.parsed.y + "%"
-          }
+          callbacks: { label: c => c.parsed.y + "%" }
         }
       }
     },
     plugins: [{
-      beforeDraw: chart => {
+      beforeDraw(chart) {
         const ctx = chart.ctx;
         ctx.save();
         ctx.fillStyle = cardInlay;
@@ -631,282 +793,85 @@ function updateStats() {
   });
 }
 
-/* -----------------------
-   HARD-CODED QUEST DATA
-   ----------------------- */
-const quests = {
-  main: [
-    { name: "7th Airborne Squad", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Scavenger Adam", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Xion, the Last Remaining City", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Altess Levoire", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Light of Hope", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Alpha Signal", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Hidden Truth", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Abyss Levoire", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Orcal's Testimony", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Secret Garden", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Eye of the Hurricane", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Burning Xion", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Last Fragment", tag: "Required", status: "NotStarted", note: ""},
-    { name: "Selection of Species", tag: "Required", status: "NotStarted", note: ""},
-    { name: "EVE Protocol", tag: "Required", status: "NotStarted", note: ""}
-  ],
-  side: [
-    { name: "A Treasure with a Name", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "A United People Cannot Be Defeated", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "An Eye for an Eye, a Tooth for a Tooth", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "An Offer You Can't Refuse", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "An Unknown Present", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Angel of Death", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Barry and Wine", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "CnL - Communicate and Link", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Encounter", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "End of the Nightmare", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Fallen Angel", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "First Customer", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "I Won't Forget You", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Incarceration", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Keeping Secrets", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Let There Be Light Again", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Life of the Scavengers", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Looking at You", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Looking Glass", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Lost Ark", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Madama Machine", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Memories in the Doll", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Oblivion", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Plan to Clean the Earth", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Reboot!", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Reboot!!!", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Siren's Song", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Stolen Treasure", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Stubbornness", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Taboo", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "The King of the Tunnel", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "The Scavenger's Story", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "The Words of Mother Sphere", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Urgent Information", tag: "Optional", status: "NotStarted", note: ""}
-  ],
-  request: [
-    { name: "An Unforgettable Fish Dish", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Find the Cat", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Generous Drop Pod", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Legion's Secret Stash", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Looking for My Brother", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Lost Device", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Lurker Hunt", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Missing Husband", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Missing Wife", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Precious Treasure", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Recruit Passcode Specialists", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Simple Puzzle", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Sleeping Beauty", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Source of the Nightmare", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "The Last Wine", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Time for Revenge", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Valuable Cargo", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Where's the Item", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Wife's Medicine", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Wife's Water Tank", tag: "Optional", status: "NotStarted", note: ""},
-    { name: "Wisdom Puzzle", tag: "Optional", status: "NotStarted", note: ""}
-  ],
-  can: [
-    { name: "Cryo Original", tag: "Eidos7", status: "NotStarted", note: ""},
-    { name: "Cryo Zero", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Pixie", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Pixie Zero", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Newfoundland Dry", tag: "Matrix11", status: "NotStarted", note: ""},
-    { name: "Newfoundland Dry Zero", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Milky Pop", tag: "Spire4", status: "NotStarted", note: ""},
-    { name: "Milky Pop Zero", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "The Machinetta Americano", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "The Machinetta Cafe Latte", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "The Machinetta Caramel Machiatto", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Cryo Cafe Original", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Cryo Cafe Vanilla", tag: "Matrix11", status: "NotStarted", note: ""},
-    { name: "Cryo Cafe Mocha", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "The Haven Earl Grey", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "The Haven Milk Tea", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "The Haven Green Tea", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "GrainT Barley", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "GrainT Oolong", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "GrainT Corn", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Nectar Orange", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Nectar Grape", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Nectar Apple", tag: "Spire4", status: "NotStarted", note: ""},
-    { name: "Nectar Cranberry", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Elixir Carrot", tag: "Eidos7", status: "NotStarted", note: ""},
-    { name: "Elixir Green", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Behemoth Red", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Behemoth Green", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Behemoth Black", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Liquid Fire", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Liquid Lightning", tag: "Spire4", status: "NotStarted", note: ""},
-    { name: "Liquid Nuclear", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Potential Blast", tag: "Eidos7", status: "NotStarted", note: ""},
-    { name: "Potential Tempest", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Potential Frost", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Dionysus C", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Moonwell", tag: "Spire4", status: "NotStarted", note: ""},
-    { name: "Starwell", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Mountain Sparkle Mont Blanc", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Mountain Sparkle Everest", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Mountain Sparkle Halla", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Cryo The Clear", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Cryo The Malt", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Bayern Hefe Weissbier", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Bayern Weissbier Dunkel", tag: "Xion", status: "NotStarted", note: ""},
-    { name: "Corsair Lager", tag: "Wasteland", status: "NotStarted", note: ""},
-    { name: "Corsair Ale", tag: "Matrix11", status: "NotStarted", note: ""},
-    { name: "Johnson's Highball Lemon", tag: "GreatDesert", status: "NotStarted", note: ""},
-    { name: "Johnson's Highball Ginger", tag: "GreatDesert", status: "NotStarted", note: ""}
-  ]
-};
 
-let currentCategory = "main";
+/* =====================================================
+   TABLE + DASHBOARD RENDER
+   ===================================================== */
 
 function renderTable() {
   const tbody = document.querySelector("#questsTable tbody");
 
-  const recentList = document.getElementById('recentlyPlayed');
-  const inProgressList = document.getElementById('inProgress');
-  const summaryBox = document.getElementById('summary');
-  const completionText = document.getElementById('completionText');
-  const completionBar = document.getElementById('completionBar');
-  const completionTextStats = document.getElementById('completionTextStats');
-  const completionBarStats = document.getElementById('completionBarStats');
+  const recentList = document.getElementById("recentlyPlayed");
+  const inProgressList = document.getElementById("inProgress");
+  const summaryBox = document.getElementById("summary");
+  const completionText = document.getElementById("completionText");
+  const completionBar = document.getElementById("completionBar");
+  const completionTextStats = document.getElementById("completionTextStats");
+  const completionBarStats = document.getElementById("completionBarStats");
 
-  recentList.innerHTML = '';
-  inProgressList.innerHTML = '';
-  summaryBox.innerHTML = '';
+  recentList.innerHTML = "";
+  inProgressList.innerHTML = "";
 
-  let totalQuests = 0;
-  let completed = 0;
-  let inProgress = 0;
-  let notStarted = 0;
-  let onHold = 0;
-  let hundred = 0;
+  let totalQuests = 0, completed = 0, inProgress = 0, notStarted = 0, onHold = 0, hundred = 0;
 
   const recentFrag = document.createDocumentFragment();
   const inProgressFrag = document.createDocumentFragment();
 
-  /* ---------------------------
-      TABLE RENDER
-  ---------------------------- */
-tbody.innerHTML = quests[currentCategory].map((q, i) => {
+  tbody.innerHTML = GAME.data[currentCategory].map((q, i) => {
+    const tags = splitTags(q.tag);
 
-  // FIX: convert tag string → array inside the map
-  const tags = Array.isArray(q.tag)
-    ? q.tag
-    : q.tag.split(",").map(t => t.trim());
+    return `
+      <tr>
+        <td>
+          <div>${q.name}</div>
+          ${q.note ? `<div class="note">${q.note}</div>` : ""}
+        </td>
+        <td>${GAME.categories[currentCategory]}</td>
+        <td>
+          <div class="tag-container">
+            ${tags.map(t => `<span class="tag ${t.replace(/\s+/g, "-")}">${t}</span>`).join("")}
+          </div>
+        </td>
+        <td>
+          <select class="statusSelect status${q.status}" data-index="${i}">
+            ${GAME.statuses.map(s =>
+              `<option value="${s}" ${q.status === s ? "selected" : ""}>
+                ${s === "Hundred" ? "100%" : s.replace(/([A-Z])/g, " $1").trim()}
+              </option>`
+            ).join("")}
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join("");
 
-  return `
-    <tr>
-      <td>
-        <div>${q.name}</div> 
-        ${q.note && q.note.trim() !== "" ? `<div class="note">${q.note}</div>` : ""}
-      </td>
-      <td>${currentCategory}</td>
-      <td>
-        <div class="tag-container">
-          ${tags.map(t => `
-            <span class="tag ${t.replace(/\s+/g, '-')}" data-type="${t}">
-              ${t}
-            </span>
-          `).join("")}
-        </div>
-      </td>
-      <td>
-        <select class="statusSelect status${q.status}" data-cat="${currentCategory}" data-index="${i}">
-          <option value="NotStarted" ${q.status==="NotStarted"?"selected":""}>Not Started</option>
-          <option value="InProgress" ${q.status==="InProgress"?"selected":""}>In Progress</option>
-          <option value="OnHold" ${q.status==="OnHold"?"selected":""}>On Hold</option>
-          <option value="Completed" ${q.status==="Completed"?"selected":""}>Completed</option>
-          <option value="Hundred" ${q.status==="Hundred"?"selected":""}>100%</option>
-        </select>
-      </td>
-    </tr>
-  `;
-}).join("");
-
-applyFilters();
-
-  /* ---------------------------
-      COUNT STATUSES
-  ---------------------------- */
-  quests[currentCategory].forEach(q => {
+  GAME.data[currentCategory].forEach(q => {
     totalQuests++;
 
     switch (q.status) {
-      case "Completed":
-        completed++;
-        const r1 = document.createElement("li");
-        r1.textContent = q.name;
-        recentFrag.appendChild(r1);
-        break;
-
-      case "Hundred":
-        hundred++;
-        completed++;
-        const r2 = document.createElement("li");
-        r2.textContent = q.name + " (100%)";
-        recentFrag.appendChild(r2);
-        break;
-
-      case "InProgress":
-        inProgress++;
-        const ip = document.createElement("li");
-        ip.textContent = q.name;
-        inProgressFrag.appendChild(ip);
-        break;
-
-      case "NotStarted":
-        notStarted++;
-        break;
-
-      case "OnHold":
-        onHold++;
-        break;
+      case "Completed": completed++; recentFrag.appendChild(li(q.name)); break;
+      case "Hundred": hundred++; completed++; recentFrag.appendChild(li(q.name + " (100%)")); break;
+      case "InProgress": inProgress++; inProgressFrag.appendChild(li(q.name)); break;
+      case "NotStarted": notStarted++; break;
+      case "OnHold": onHold++; break;
     }
   });
 
-  /* ---------------------------
-      APPEND LISTS
-  ---------------------------- */
   recentList.appendChild(recentFrag);
   inProgressList.appendChild(inProgressFrag);
 
-  /* ---------------------------
-      COMPLETION BAR
-  ---------------------------- */
-  let total = 0;
-  let done = 0;
-
-  // Count ALL quests across ALL categories
-  Object.values(quests).forEach(category => {
-    category.forEach(q => {
-      total++;
-
-      if (q.status === "Completed" || q.status === "Hundred") {
-        done++;
-      }
-    });
-  });
+  let total = 0, done = 0;
+  Object.values(GAME.data).forEach(cat =>
+    cat.forEach(q => { total++; if (isCompleted(q.status)) done++; })
+  );
 
   const percent = total ? (done / total) * 100 : 0;
 
-  // Dashboard bar
   if (completionBar) completionBar.style.width = percent + "%";
   if (completionText) completionText.textContent = `${done} / ${total} Completed`;
-
-  // Stats page bar
   if (completionBarStats) completionBarStats.style.width = percent + "%";
   if (completionTextStats) completionTextStats.textContent = `${done} / ${total} Completed`;
 
-  /* ---------------------------
-      SUMMARY BOX
-  ---------------------------- */
   if (summaryBox) {
     summaryBox.innerHTML = `
       <li>Total: ${totalQuests}</li>
@@ -917,21 +882,34 @@ applyFilters();
       <li>On Hold: ${onHold}</li>
     `;
   }
+
+  applyFilters();
 }
 
-// Update status when dropdown changes
+function li(text) {
+  const el = document.createElement("li");
+  el.textContent = text;
+  return el;
+}
+
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+
 document.addEventListener("change", e => {
-  if (e.target.matches("select[data-cat]")) {
-    const cat = e.target.dataset.cat;
-    const index = e.target.dataset.index;
-    quests[cat][index].status = e.target.value;
-    localStorage.setItem("stellar-blade-checklist", JSON.stringify(quests));
-    renderTable();
-    applyFilters();
-  }
+  if (!e.target.matches(".statusSelect")) return;
+
+  const index = e.target.dataset.index;
+  GAME.data[currentCategory][index].status = e.target.value;
+
+  saveGame();
+  renderTable();
 });
 
-/* ---------- search -----------*/
+const searchInput = document.getElementById("gameSearch");
+searchInput.addEventListener("input", applyFilters);
+
 function applyFilters() {
   const query = searchInput.value.toLowerCase();
   const tbody = document.querySelector('#questsTable tbody');
@@ -943,7 +921,7 @@ function applyFilters() {
     const statusSelect = row.cells[3]?.querySelector('select');
     const statusVal = (statusSelect?.value || '').toLowerCase();
 
-    // human-readable aliases
+    // Map value to human-readable label
     let statusLabel = statusVal;
     if (statusVal === 'hundred')     statusLabel = '100%';
     if (statusVal === 'inprogress')  statusLabel = 'in progress';
@@ -961,12 +939,35 @@ function applyFilters() {
   });
 }
 
-const searchInput = document.getElementById('gameSearch');
+document.querySelectorAll(".button-report[data-cat]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    currentCategory = btn.dataset.cat;
+    renderTable();
+  });
+});
 
-// Search typing
-searchInput.addEventListener('input', applyFilters);
 
-/* ---------- theme handling -----------*/
+/* =====================================================
+   TABS
+   ===================================================== */
+
+const dashboardContent = document.getElementById("dashboardContent");
+const statsContent = document.getElementById("statsContent");
+
+document.querySelectorAll(".navbar .menu a").forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    const isStats = a.textContent.trim() === "Stats";
+    dashboardContent.style.display = isStats ? "none" : "block";
+    statsContent.style.display = isStats ? "block" : "none";
+    if (isStats) updateStats();
+  });
+});
+
+
+/* =====================================================
+   SETTINGS
+   ===================================================== */
 const SettingsModal = document.getElementById("settingsModal");
 const openSettings = document.getElementById("openSettingsModal");
 const closeSettings = document.getElementById("closeSettingsModal");
@@ -1027,47 +1028,12 @@ if (localStorage.getItem("theme") === "discord-dark") {
   document.body.classList.add("discord-theme");
 }
 
-/* ---------- tab handling -----------*/
-const dashboardContent = document.getElementById('dashboardContent');
-const statsContent = document.getElementById('statsContent');
 
-const menuLinks = document.querySelectorAll('.navbar .menu a');
-const dashboardLink = [...menuLinks].find(a => a.textContent.trim() === 'Dashboard');
-const statsLink = [...menuLinks].find(a => a.textContent.trim() === 'Stats');
+/* =====================================================
+   INIT
+   ===================================================== */
 
-function showDashboard() {
-  dashboardContent.style.display = 'block';
-  statsContent.style.display = 'none';
-  dashboardLink.classList.add('active');
-  statsLink.classList.remove('active');
-}
-
-function showStats() {
-  dashboardContent.style.display = 'none';
-  statsContent.style.display = 'block';
-  statsLink.classList.add('active');
-  dashboardLink.classList.remove('active');
-  updateStats();
-}
-
-dashboardLink.addEventListener('click', e => { e.preventDefault(); showDashboard(); });
-statsLink.addEventListener('click', e => { e.preventDefault(); showStats(); });
-
-// Save/load progress
-const saved = JSON.parse(localStorage.getItem("stellar-blade-checklist"));
-if (saved) Object.assign(quests, saved);
-
-// Handle category buttons
-document.querySelectorAll(".button-report[data-cat]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    currentCategory = btn.dataset.cat;
-    renderTable();
-  });
-});
-
-/* ---------- init ---------- */
 renderTable();
 </script>
-
 </body>
 </html>
