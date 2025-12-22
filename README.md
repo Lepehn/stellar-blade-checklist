@@ -11,11 +11,11 @@ A sleek, lightweight checklist web app to help you track quests, requests, and c
   - Requests
   - Cans (collectibles)
 - 🗂️ Filter by type:
-  - Bosses
-  - Weapons
-  - Legion Arms
+  - Quest
+  - Bosses (WIP)
+  - Weapons (WIP)
   - Collectibles
-  - DLC
+  - DLC (WIP)
 - 🗂️ Filter by location:
   - Xion
   - Wasteland
