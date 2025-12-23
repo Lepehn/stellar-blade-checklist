@@ -957,6 +957,9 @@ const statsContent = document.getElementById("statsContent");
 document.querySelectorAll(".navbar .menu a").forEach(a => {
   a.addEventListener("click", e => {
     e.preventDefault();
+    document.querySelectorAll(".navbar .menu a")
+    .forEach(link => link.classList.remove("active"));
+    a.classList.add("active");
     const isStats = a.textContent.trim() === "Stats";
     dashboardContent.style.display = isStats ? "none" : "block";
     statsContent.style.display = isStats ? "block" : "none";
