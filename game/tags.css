@@ -1,0 +1,38 @@
+ :root {
+  --tag-Xion: #023570;
+  --tag-Eidos7: #890125;
+  --tag-Wasteland: #e25509;
+  --tag-Matrix11: #1eaa0b;
+  --tag-GreatDesert: #b23c05;
+  --tag-Spire4: #e21474;
+ }
+
+.tag.Xion {
+   background: var(--tag-Xion);
+   color: var(--status-text);
+}
+
+.tag.Eidos7 {
+   background: var(--tag-Eidos7);
+   color: var(--status-text);
+}
+
+.tag.Wasteland {
+   background: var(--tag-Wasteland);
+   color: var(--status-text);
+}
+
+.tag.Matrix11 {
+   background: var(--tag-Matrix11);
+   color: var(--status-text);
+}
+
+.tag.GreatDesert {
+  background: var(--tag-GreatDesert);
+  color: var(--status-text);
+}
+
+.tag.Spire4 {
+  background: var(--tag-Spire4);
+  color: var(--status-text);
+}

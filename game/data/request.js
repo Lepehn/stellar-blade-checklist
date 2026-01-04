@@ -1,0 +1,23 @@
+export const request = [
+      { name: "An Unforgettable Fish Dish", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Find the Cat", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Generous Drop Pod", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Legion's Secret Stash", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Looking for My Brother", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Lost Device", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Lurker Hunt", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Missing Husband", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Missing Wife", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Precious Treasure", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Recruit Passcode Specialists", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Simple Puzzle", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Sleeping Beauty", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Source of the Nightmare", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "The Last Wine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Time for Revenge", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Valuable Cargo", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Where's the Item", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wife's Medicine", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wife's Water Tank", tag: "Optional", status: "NotStarted", note: ""},
+      { name: "Wisdom Puzzle", tag: "Optional", status: "NotStarted", note: ""}
+];
