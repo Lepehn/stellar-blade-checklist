@@ -43,6 +43,7 @@ body {
   align-items: center;
   padding: 20px 40px;
   border-bottom: 1px solid var(--button);
+  background-color: var(--navbar);
 }
 .navbar .logo { color: var(--text-active); font-size: var(--font-size-extra-large); font-weight: bold;}
 .navbar .menu { display: flex; gap: 30px; }
