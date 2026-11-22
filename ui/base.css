@@ -34,14 +34,19 @@ body {
   margin-bottom: 120px;
   font-family: var(--font-main);
   color: var(--onsurface);
-  background-image: url(https://image.api.playstation.com/vulcan/ap/rnd/202401/2211/2937cd4563d2dc50f0632a1bcfbac1f1f7dee3d2984ea02c.jpg?w=2048&thumb=false);
+  background-image: url(https://image.api.playstation.com/vulcan/ap/rnd/202401/2211/2937cd4563d2dc50f0632a1bcfbac1f1f7dee3d2984ea02c.jpg?w=5000&thumb=false);
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
 }
 
 h1 {
-  color: var(--primary);
+  background: var(--surface-container);
+  color: var(--onsurface);
+  border-radius: var(--radius);
+  padding: 1px 12px;
+  backdrop-filter: blur(12px);
+  width: fit-content;
 }
 
 /* Navigation */
@@ -141,6 +146,12 @@ h1 {
   margin: 0 auto;
   width: 100% !important;
   max-height: 250px;
+}
+
+.card canvas {
+  border-radius: var(--radius2);
+  padding: 3px 12px;
+  margin: 4px 3px;
 }
 
 .games { grid-column: span 2; }
